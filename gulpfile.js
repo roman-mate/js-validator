@@ -10,6 +10,7 @@ const htmlBlob = 'src/*.html';
 const imagesBlob = 'src/images/**';
 const fontsBlob = 'src/fonts/**';
 const stylesBlob = 'src/css/**';
+const jsBlob = 'src/js/**';
 
 gulp.task('default', function () {
   return runSequence('build', 'serve');
@@ -44,6 +45,10 @@ gulp.task('serve', function () {
   gulp.watch(stylesBlob, function () {
     return runSequence('processStyles', 'reloadBrowser');
   });
+
+  gulp.watch(jsBlob, function () {
+    return runSequence('processJs', 'reloadBrowser');
+  });
 });
 
 gulp.task('cleanDist', function () {
@@ -63,6 +68,11 @@ gulp.task('processImages', function () {
 gulp.task('processFonts', function () {
   return gulp.src(fontsBlob)
     .pipe(gulp.dest(`${distDirectory}/fonts/`));
+});
+
+gulp.task('processJs', function () {
+  return gulp.src(jsBlob)
+    .pipe(gulp.dest(`${distDirectory}/js/`));
 });
 
 gulp.task('processStyles', function () {
